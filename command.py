@@ -66,5 +66,8 @@ def	initiate_command(stack_a, stack_b, command):
 		rotate(stack_a, stack_b, command);
 	elif (command[0] == 's'):
 		swap(stack_a, stack_b, command);
-	else:
+	elif (command[0] == 'r' and command[1] == 'r'):
 		reverse_rotate(stack_a, stack_b, command);
+	else:
+		return (0);
+	return (1);
