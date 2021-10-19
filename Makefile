@@ -10,10 +10,11 @@ all: push_swap
 	@echo -e 'Lancement des tests' ${BALEINE} ${NOTES}
 	@python3 main.py ${NUMBER_OF_TESTS} ${SIZE_OF_STACK}
 push_swap:
-	@$(MAKE) -C $(DIR)
+	@$(MAKE) -sC $(DIR)
 	@printf "COMPILATION DONE\\360\237\246\204\n"
 clean:
 	@rm -rf __pycache__
+	@sh erase_file_error.sh
 fclean: clean
-	@$(MAKE) -C $(DIR) fclean
+	@$(MAKE) -sC $(DIR) fclean
 re:	all fclean
