@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/10/20 14:16:36 by achane-l          #+#    #+#              #
+#    Updated: 2021/10/20 14:22:31 by achane-l         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NUMBER_OF_TESTS = 10
 SIZE_OF_STACK = 100
 DIR = ../../Push_Swap
@@ -14,7 +26,7 @@ push_swap:
 	@printf "COMPILATION DONE\\360\237\246\204\n"
 clean:
 	@rm -rf __pycache__
-	@sh erase_file_error.sh
+	@sh errors/erase_file_error.sh
 fclean: clean
 	@$(MAKE) -sC $(DIR) fclean
 re:	all fclean

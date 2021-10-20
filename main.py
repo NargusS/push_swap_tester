@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    main.py                                            :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/10/20 14:16:29 by achane-l          #+#    #+#              #
+#    Updated: 2021/10/20 14:31:58 by achane-l         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 import command
 import sys
 import os
@@ -7,10 +19,10 @@ def make_my_push_swap(stack_a, n_testcase):
 	exec_command = ".././push_swap ";
 	for elem in stack_a:
 		exec_command += (str(elem) + ' ');
-	os.system(exec_command + "> command_test_"+ str(n_testcase) +".txt");
+	os.system(exec_command + "> errors/command_test_"+ str(n_testcase) +".txt");
 
 def	read_and_exec_command(stack_a, stack_b, n_testcase):
-	file = open("command_test_"+ str(n_testcase) +".txt", "r");
+	file = open("errors/command_test_"+ str(n_testcase) +".txt", "r");
 	for line in file:
 		if command.initiate_command(stack_a, stack_b, line) == 0:
 			file.close();
@@ -79,7 +91,7 @@ def	check_number_of_instruction_points(size_of_stack, nb_of_cmd):
 		print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅"+'\033[0m');
 
 def	check_data(stack_a, stack_b, n_testcase, size_of_stack):
-	command_file = open("command_test_"+ str(n_testcase) +".txt", "r");
+	command_file = open("errors/command_test_"+ str(n_testcase) +".txt", "r");
 	command_file = command_file.readlines();
 	check_number_of_instruction_points(size_of_stack, len(command_file));
 	print("pa : ", str(command_file.count("pa\n")));
@@ -98,7 +110,7 @@ def all_is_good(stack_a, stack_b, n_testcase, size_of_stack):
 	if not stack_b and check_sort(stack_a) == 1:
 		check_data(stack_a, stack_b, n_testcase, size_of_stack);
 	else :
-		save_error_stack = open("stacks_of_test_"+ str(n_testcase)+".txt", "a");
+		save_error_stack = open("errors/stacks_of_test_"+ str(n_testcase)+".txt", "a");
 		if (check_sort(stack_a) == 0):
 			print('\033[91m'+"NOT WORKS ❌ STACK_A IS NOT SORT ❌"+'\033[0m');
 		if stack_b:
@@ -107,12 +119,13 @@ def all_is_good(stack_a, stack_b, n_testcase, size_of_stack):
 		save_error_stack.close();
 
 def	get_test(size_of_stack, n_testcase):
+	random.seed(n_testcase);
 	stack_a = random.sample(range(-2147483648, 2147483647), size_of_stack);
 	stack_b = [];
 	make_my_push_swap(stack_a, n_testcase);
 	if (read_and_exec_command(stack_a, stack_b, n_testcase) == 1):
 		all_is_good(stack_a, stack_b, n_testcase, size_of_stack);
-		os.system("rm command_test_" + str(n_testcase) + ".txt");
+		os.system("rm errors/command_test_" + str(n_testcase) + ".txt");
 	else:
 		print('\033[91m' + "NOT WORKS ❌ You display something that is not a command ❌"+'\033[0m');
 
