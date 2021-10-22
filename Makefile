@@ -6,12 +6,12 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:36 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/22 17:06:35 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/22 18:35:03 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NUMBER_OF_TESTS = 100
-SIZE_OF_STACK = 100
+SIZE_OF_STACK = 500
 MIN_VALUE = -2147483647
 MAX_VALUE = 2147483647
 

@@ -6,7 +6,7 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:29 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/22 17:05:14 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/22 17:48:51 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,10 +105,11 @@ def	check_data(stack_a, stack_b, n_testcase, size_of_stack):
 	print("sa : ", str(command_file.count("sa\n")));
 	print("sb : ", str(command_file.count("sb\n")));
 	print("ss : ", str(command_file.count("ss\n")));
+	return (len(command_file));
 
 def all_is_good(stack_a, stack_b, n_testcase, size_of_stack):
 	if not stack_b and check_sort(stack_a) == 1:
-		check_data(stack_a, stack_b, n_testcase, size_of_stack);
+		return(check_data(stack_a, stack_b, n_testcase, size_of_stack));
 	else :
 		save_error_stack = open("errors/stacks_of_test_"+ str(n_testcase)+".txt", "a");
 		if (check_sort(stack_a) == 0):
@@ -117,23 +118,33 @@ def all_is_good(stack_a, stack_b, n_testcase, size_of_stack):
 			print('\033[91m' + "NOT WORKS ❌ STACK_B IS NOT EMPTY ❌"+'\033[0m');
 		print_my_stacks(stack_a,stack_b, save_error_stack);
 		save_error_stack.close();
+		return (0);
 
-def	get_test(min_value, max_value, size_of_stack, n_testcase):
+def	get_test(min_value, max_value, size_of_stack, n_testcase, state_test):
 	random.seed(n_testcase);
+	number_of_moves = 0;
 	stack_a = random.sample(range(min_value, max_value), size_of_stack);
 	stack_b = [];
 	make_my_push_swap(stack_a, n_testcase);
 	if (read_and_exec_command(stack_a, stack_b, n_testcase) == 1):
-		all_is_good(stack_a, stack_b, n_testcase, size_of_stack);
+		number_of_moves = all_is_good(stack_a, stack_b, n_testcase, size_of_stack);
 		os.system("rm errors/command_test_" + str(n_testcase) + ".txt");
+		if (number_of_moves > 0):
+			state_test[0] += 1;
+		else:
+			state_test[1] += 1;
+			number_of_moves = 0;
 	else:
 		print('\033[91m' + "NOT WORKS ❌ You display something that is not a command ❌"+'\033[0m');
+		failed_test += 1;
+	return (number_of_moves);
 
 if __name__ == "__main__":
 	number_of_test = int(sys.argv[1]);
 	size_of_stack = int(sys.argv[2]);
 	min_value = int(sys.argv[3]);
 	max_value = int(sys.argv[4]);
+	number_of_moves_total = 0;
 	i = 1;
 
 	if (min_value >= max_value):
@@ -141,7 +152,11 @@ if __name__ == "__main__":
 	elif (min_value + size_of_stack > max_value):
 		print("ERROR : The Difference between Min_value and Max_value is too small");
 	else :
+		state_test = [0,0];
 		while i <= number_of_test:
 			print('\033[93m'+"========================= TEST_CASE N°",str(i), " ========================="+'\033[0m');
-			get_test(min_value, max_value, size_of_stack, i);
+			number_of_moves_total += get_test(min_value, max_value, size_of_stack, i, state_test);
 			i += 1;
+	print('\033[92m' +"SUCCESS : " + str(state_test[0]) + '✅' +'\033[0m');
+	print('\033[91m' +"FAILED : " + str(state_test[1]) + '✅' +'\033[0m');
+	print('\033[93m' +"Average of moves for SUCCESS TEST: " + str(number_of_moves_total/state_test[0])+'\033[0m');
