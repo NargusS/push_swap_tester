@@ -6,7 +6,7 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:29 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/20 14:31:58 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/22 17:05:14 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,9 +118,9 @@ def all_is_good(stack_a, stack_b, n_testcase, size_of_stack):
 		print_my_stacks(stack_a,stack_b, save_error_stack);
 		save_error_stack.close();
 
-def	get_test(size_of_stack, n_testcase):
+def	get_test(min_value, max_value, size_of_stack, n_testcase):
 	random.seed(n_testcase);
-	stack_a = random.sample(range(-2147483648, 2147483647), size_of_stack);
+	stack_a = random.sample(range(min_value, max_value), size_of_stack);
 	stack_b = [];
 	make_my_push_swap(stack_a, n_testcase);
 	if (read_and_exec_command(stack_a, stack_b, n_testcase) == 1):
@@ -132,8 +132,16 @@ def	get_test(size_of_stack, n_testcase):
 if __name__ == "__main__":
 	number_of_test = int(sys.argv[1]);
 	size_of_stack = int(sys.argv[2]);
+	min_value = int(sys.argv[3]);
+	max_value = int(sys.argv[4]);
 	i = 1;
-	while i <= number_of_test:
-		print('\033[93m'+"========================= TEST_CASE N°",str(i), " ========================="+'\033[0m');
-		get_test(size_of_stack, i);
-		i += 1;
+
+	if (min_value >= max_value):
+		print("ERROR :The Min_Value is greather or equal to Max_Value");
+	elif (min_value + size_of_stack > max_value):
+		print("ERROR : The Difference between Min_value and Max_value is too small");
+	else :
+		while i <= number_of_test:
+			print('\033[93m'+"========================= TEST_CASE N°",str(i), " ========================="+'\033[0m');
+			get_test(min_value, max_value, size_of_stack, i);
+			i += 1;
