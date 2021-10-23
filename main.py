@@ -6,7 +6,7 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:29 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/22 17:48:51 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/24 01:25:04 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ def check_sort(stack):
 
 def	check_number_of_instruction_points(size_of_stack, nb_of_cmd):
 	if (size_of_stack == 3):
-		if (nb_of_cmd == 2 or nb_of_cmd == 3):
+		if (nb_of_cmd <= 3):
 			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅"+'\033[0m');
 		else :
 			print("SORT WITH TO MANY INSTRUCTIONS ==> " +  '\033[91m'+str(nb_of_cmd)+" instructions ❌" +'\033[0m');
@@ -125,6 +125,8 @@ def	get_test(min_value, max_value, size_of_stack, n_testcase, state_test):
 	number_of_moves = 0;
 	stack_a = random.sample(range(min_value, max_value), size_of_stack);
 	stack_b = [];
+	while (check_sort(stack_a) == 1):
+		stack_a = random.sample(range(min_value, max_value), size_of_stack);
 	make_my_push_swap(stack_a, n_testcase);
 	if (read_and_exec_command(stack_a, stack_b, n_testcase) == 1):
 		number_of_moves = all_is_good(stack_a, stack_b, n_testcase, size_of_stack);
@@ -157,6 +159,6 @@ if __name__ == "__main__":
 			print('\033[93m'+"========================= TEST_CASE N°",str(i), " ========================="+'\033[0m');
 			number_of_moves_total += get_test(min_value, max_value, size_of_stack, i, state_test);
 			i += 1;
-	print('\033[92m' +"SUCCESS : " + str(state_test[0]) + '✅' +'\033[0m');
-	print('\033[91m' +"FAILED : " + str(state_test[1]) + '✅' +'\033[0m');
-	print('\033[93m' +"Average of moves for SUCCESS TEST: " + str(number_of_moves_total/state_test[0])+'\033[0m');
+		print('\033[92m' +"SUCCESS : " + str(state_test[0]) + '✅' +'\033[0m');
+		print('\033[91m' +"FAILED : " + str(state_test[1]) + '✅' +'\033[0m');
+		print('\033[93m' +"Average of moves for SUCCESS TEST: " + str(number_of_moves_total/state_test[0])+'\033[0m');

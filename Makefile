@@ -6,12 +6,12 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:36 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/22 18:35:03 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/24 01:26:27 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NUMBER_OF_TESTS = 100
-SIZE_OF_STACK = 500
+SIZE_OF_STACK = 100
 MIN_VALUE = -2147483647
 MAX_VALUE = 2147483647
 
@@ -34,4 +34,4 @@ clean:
 fclean: clean
 	@cd ../ && $(MAKE) -s fclean
 	@echo "Merci d'avoir utiliser mon testeur que du love ${BALEINE} ${NOTES}"
-re:	all fclean
+re:	fclean all
