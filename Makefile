@@ -6,14 +6,14 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:36 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/24 14:50:50 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/24 19:27:23 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NUMBER_OF_TESTS = 20
+NUMBER_OF_TESTS = 1000
 SIZE_OF_STACK = 100
-MIN_VALUE = -2147483647
-MAX_VALUE = 2147483647
+MIN_VALUE = -1000
+MAX_VALUE = 1000
 RANDOM = "yes"
 DIR = ../../Push_Swap
 NOTES = \xF0\x9F\x93\x9D

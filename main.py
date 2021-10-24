@@ -6,7 +6,7 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:29 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/24 14:42:48 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/24 19:27:15 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,26 +66,26 @@ def	check_number_of_instruction_points(size_of_stack, nb_of_cmd):
 		if (nb_of_cmd < 700):
 			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 5 POINTS"+'\033[0m');
 		elif (nb_of_cmd < 900):
-			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 4 POINTS"+'\033[0m');
+			print("SORT ==> "+ '\033[94m' +str(nb_of_cmd)+ " instructions ✅ 4 POINTS"+'\033[0m');
 		elif (nb_of_cmd < 1100):
-			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 3 POINTS"+'\033[0m');
+			print("SORT ==> "+ '\033[94m' +str(nb_of_cmd)+ " instructions ✅ 3 POINTS"+'\033[0m');
 		elif (nb_of_cmd < 1300):
-			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 2 POINTS"+'\033[0m');
+			print("SORT ==> "+ '\033[94m' +str(nb_of_cmd)+ " instructions ✅ 2 POINTS"+'\033[0m');
 		elif (nb_of_cmd < 1500):
-			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 1 POINTS"+'\033[0m');
+			print("SORT ==> "+ '\033[94m' +str(nb_of_cmd)+ " instructions ✅ 1 POINTS"+'\033[0m');
 		else:
 			print("SORT WITH TO MANY INSTRUCTIONS ==> " + '\033[91m'+ str(nb_of_cmd)+" instructions ❌"+'\033[0m');
 	elif (size_of_stack == 500):
 		if (nb_of_cmd < 5500):
 			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 5 POINTS"+'\033[0m');
 		elif (nb_of_cmd < 7000):
-			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 4 POINTS"+'\033[0m');
+			print("SORT ==> "+ '\033[94m' +str(nb_of_cmd)+ " instructions ✅ 4 POINTS"+'\033[0m');
 		elif (nb_of_cmd < 8500):
-			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 3 POINTS"+'\033[0m');
+			print("SORT ==> "+ '\033[94m' +str(nb_of_cmd)+ " instructions ✅ 3 POINTS"+'\033[0m');
 		elif (nb_of_cmd < 10000):
-			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 2 POINTS"+'\033[0m');
+			print("SORT ==> "+ '\033[94m' +str(nb_of_cmd)+ " instructions ✅ 2 POINTS"+'\033[0m');
 		elif (nb_of_cmd < 11500):
-			print("SORT ==> "+ '\033[92m' +str(nb_of_cmd)+ " instructions ✅ 1 POINTS"+'\033[0m');
+			print("SORT ==> "+ '\033[94m' +str(nb_of_cmd)+ " instructions ✅ 1 POINTS"+'\033[0m');
 		else:
 			print("SORT WITH TO MANY INSTRUCTIONS ==> " + '\033[91m' + str(nb_of_cmd)+" instructions ❌"+'\033[0m');
 	else :
@@ -150,6 +150,7 @@ if __name__ == "__main__":
 	max_value = int(sys.argv[4]);
 	check_random = sys.argv[5];
 	number_of_moves_total = 0;
+	moves_max = 0;
 	i = 1;
 
 	if (min_value >= max_value):
@@ -162,10 +163,14 @@ if __name__ == "__main__":
 		state_test = [0,0];
 		while i <= number_of_test:
 			print('\033[93m'+"========================= TEST_CASE N°",str(i), " ========================="+'\033[0m');
-			number_of_moves_total += get_test(min_value, max_value, size_of_stack, i, state_test, check_random);
+			moves = get_test(min_value, max_value, size_of_stack, i, state_test, check_random);
+			number_of_moves_total += moves;
 			i += 1;
-			time.sleep(0.3);
+			if (moves > moves_max):
+				moves_max = moves;
+			time.sleep(0.2);
 		print('\033[92m' +"SUCCESS : " + str(state_test[0]) + '✅' +'\033[0m');
 		print('\033[91m' +"FAILED : " + str(state_test[1]) + '✅' +'\033[0m');
 		if (state_test[0] > 0):
 			print('\033[93m' +"Average of moves for SUCCESS TEST: " + str(number_of_moves_total/state_test[0])+'\033[0m');
+		print("Max instructions : ", str(moves_max) + "instructions");
