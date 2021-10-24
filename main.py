@@ -6,7 +6,7 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:29 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/24 01:25:04 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/24 14:42:48 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ import command
 import sys
 import os
 import random
+import time
 
 def make_my_push_swap(stack_a, n_testcase):
 	exec_command = ".././push_swap ";
@@ -120,8 +121,9 @@ def all_is_good(stack_a, stack_b, n_testcase, size_of_stack):
 		save_error_stack.close();
 		return (0);
 
-def	get_test(min_value, max_value, size_of_stack, n_testcase, state_test):
-	random.seed(n_testcase);
+def	get_test(min_value, max_value, size_of_stack, n_testcase, state_test, check_random):
+	if (check_random == "no"):
+		random.seed(n_testcase);
 	number_of_moves = 0;
 	stack_a = random.sample(range(min_value, max_value), size_of_stack);
 	stack_b = [];
@@ -138,7 +140,7 @@ def	get_test(min_value, max_value, size_of_stack, n_testcase, state_test):
 			number_of_moves = 0;
 	else:
 		print('\033[91m' + "NOT WORKS ❌ You display something that is not a command ❌"+'\033[0m');
-		failed_test += 1;
+		state_test[1] += 1;
 	return (number_of_moves);
 
 if __name__ == "__main__":
@@ -146,19 +148,24 @@ if __name__ == "__main__":
 	size_of_stack = int(sys.argv[2]);
 	min_value = int(sys.argv[3]);
 	max_value = int(sys.argv[4]);
+	check_random = sys.argv[5];
 	number_of_moves_total = 0;
 	i = 1;
 
 	if (min_value >= max_value):
-		print("ERROR :The Min_Value is greather or equal to Max_Value");
+		print('\033[91m' +"ERROR :The Min_Value is greather or equal to Max_Value" + '\033[0m');
 	elif (min_value + size_of_stack > max_value):
-		print("ERROR : The Difference between Min_value and Max_value is too small");
+		print('\033[91m' +"ERROR : The Difference between Min_value and Max_value is too small"+'\033[0m' );
+	elif (min_value < -2147483647 or max_value > 2147483647):
+		print('\033[91m' +"ERROR : Min_value is less than INT_MIN or Max_value is greather than INT_MAX"+ '\033[0m');
 	else :
 		state_test = [0,0];
 		while i <= number_of_test:
 			print('\033[93m'+"========================= TEST_CASE N°",str(i), " ========================="+'\033[0m');
-			number_of_moves_total += get_test(min_value, max_value, size_of_stack, i, state_test);
+			number_of_moves_total += get_test(min_value, max_value, size_of_stack, i, state_test, check_random);
 			i += 1;
+			time.sleep(0.3);
 		print('\033[92m' +"SUCCESS : " + str(state_test[0]) + '✅' +'\033[0m');
 		print('\033[91m' +"FAILED : " + str(state_test[1]) + '✅' +'\033[0m');
-		print('\033[93m' +"Average of moves for SUCCESS TEST: " + str(number_of_moves_total/state_test[0])+'\033[0m');
+		if (state_test[0] > 0):
+			print('\033[93m' +"Average of moves for SUCCESS TEST: " + str(number_of_moves_total/state_test[0])+'\033[0m');

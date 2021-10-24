@@ -6,15 +6,15 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:36 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/24 01:26:27 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/24 14:50:50 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NUMBER_OF_TESTS = 100
+NUMBER_OF_TESTS = 20
 SIZE_OF_STACK = 100
 MIN_VALUE = -2147483647
 MAX_VALUE = 2147483647
-
+RANDOM = "yes"
 DIR = ../../Push_Swap
 NOTES = \xF0\x9F\x93\x9D
 BALEINE = \xF0\x9F\x90\x8B
@@ -24,7 +24,7 @@ ROCKET = \xF0\x9F\x9A\x80
 
 all: push_swap
 	@echo "Lancement des tests ${BALEINE} ${NOTES}"
-	@python3 main.py ${NUMBER_OF_TESTS} ${SIZE_OF_STACK} ${MIN_VALUE} ${MAX_VALUE}
+	@python3 main.py ${NUMBER_OF_TESTS} ${SIZE_OF_STACK} ${MIN_VALUE} ${MAX_VALUE} ${RANDOM}
 push_swap:
 	@cd ../ && $(MAKE) -s
 	@printf "COMPILATION DONE\\360\237\246\204\n"
