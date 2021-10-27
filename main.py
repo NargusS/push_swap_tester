@@ -6,7 +6,7 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:29 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/24 19:27:15 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/27 15:33:10 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,12 @@ def	read_and_exec_command(stack_a, stack_b, n_testcase):
 	file.close();
 	return (1);
 
-def print_my_stacks(stack_a, stack_b, file):
+def print_my_stacks(stack_a, stack_b, file, input_or_output):
 	i = 0;
+	if (input_or_output == "input"):
+		file.write("INPUT :\n");
+	else
+		file.write("OUTPUT :\n");
 	file.write(5 * ' '+"STACK_A" + ' ' * 5+ "STACK_B" + "\n");
 	while i < len(stack_a) or i < len(stack_b):
 		if (i < len(stack_a) and i < len(stack_b)):
@@ -108,16 +112,17 @@ def	check_data(stack_a, stack_b, n_testcase, size_of_stack):
 	print("ss : ", str(command_file.count("ss\n")));
 	return (len(command_file));
 
-def all_is_good(stack_a, stack_b, n_testcase, size_of_stack):
+def all_is_good(stack_a, stack_b, n_testcase, size_of_stack, save_error_stack):
 	if not stack_b and check_sort(stack_a) == 1:
+		save_error_stack.close();
+		os.system("rm errors/stacks_of_test_" + str(n_testcase) + ".txt");
 		return(check_data(stack_a, stack_b, n_testcase, size_of_stack));
 	else :
-		save_error_stack = open("errors/stacks_of_test_"+ str(n_testcase)+".txt", "a");
 		if (check_sort(stack_a) == 0):
 			print('\033[91m'+"NOT WORKS ❌ STACK_A IS NOT SORT ❌"+'\033[0m');
 		if stack_b:
 			print('\033[91m' + "NOT WORKS ❌ STACK_B IS NOT EMPTY ❌"+'\033[0m');
-		print_my_stacks(stack_a,stack_b, save_error_stack);
+		print_my_stacks(stack_a,stack_b, save_error_stack, "output");
 		save_error_stack.close();
 		return (0);
 
@@ -129,9 +134,11 @@ def	get_test(min_value, max_value, size_of_stack, n_testcase, state_test, check_
 	stack_b = [];
 	while (check_sort(stack_a) == 1):
 		stack_a = random.sample(range(min_value, max_value), size_of_stack);
+	save_error_stack = open("errors/stacks_of_test_"+ str(n_testcase)+".txt", "a");
+	print_my_stacks(stack_a, stack_b, save_error_stack, "input");
 	make_my_push_swap(stack_a, n_testcase);
 	if (read_and_exec_command(stack_a, stack_b, n_testcase) == 1):
-		number_of_moves = all_is_good(stack_a, stack_b, n_testcase, size_of_stack);
+		number_of_moves = all_is_good(stack_a, stack_b, n_testcase, size_of_stack, save_error_stack);
 		os.system("rm errors/command_test_" + str(n_testcase) + ".txt");
 		if (number_of_moves > 0):
 			state_test[0] += 1;
@@ -170,7 +177,7 @@ if __name__ == "__main__":
 				moves_max = moves;
 			time.sleep(0.2);
 		print('\033[92m' +"SUCCESS : " + str(state_test[0]) + '✅' +'\033[0m');
-		print('\033[91m' +"FAILED : " + str(state_test[1]) + '✅' +'\033[0m');
+		print('\033[91m' +"FAILED : " + str(state_test[1]) + '❌' +'\033[0m');
 		if (state_test[0] > 0):
 			print('\033[93m' +"Average of moves for SUCCESS TEST: " + str(number_of_moves_total/state_test[0])+'\033[0m');
-		print("Max instructions : ", str(moves_max) + "instructions");
+		print("Max instructions : ", str(moves_max) + " instructions");
