@@ -6,7 +6,7 @@
 #    By: achane-l <achane-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/20 14:16:29 by achane-l          #+#    #+#              #
-#    Updated: 2021/10/27 15:33:10 by achane-l         ###   ########.fr        #
+#    Updated: 2021/10/27 16:26:27 by achane-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ def print_my_stacks(stack_a, stack_b, file, input_or_output):
 	i = 0;
 	if (input_or_output == "input"):
 		file.write("INPUT :\n");
-	else
+	else:
 		file.write("OUTPUT :\n");
 	file.write(5 * ' '+"STACK_A" + ' ' * 5+ "STACK_B" + "\n");
 	while i < len(stack_a) or i < len(stack_b):
